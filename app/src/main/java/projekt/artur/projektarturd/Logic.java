@@ -2,28 +2,29 @@ package projekt.artur.projektarturd;
 
 
 import android.widget.Button;
-import android.widget.TextView;
 import java.math.BigDecimal;
 
 
 
 class Logic {
+    
+    
+    private MainActivity mainActivity = new MainActivity();
+
+    private double last, present, result;
+    private boolean lastNumeric, lastDot, firstAction, isMinus, lastEq, lastZero;
+    private int lastBtn;
+    private int lenN = 0;
+    private int op = 0;
 
 
-    private static double last, present, result;
-    private static boolean lastNumeric, lastDot, firstAction, isMinus, lastEq, lastZero;
-    private static int lastBtn;
-    private static int lenN = 0;
-    private static int op = 0;
 
-
-
-    void zeroO(Button btnZero, TextView textView, TextView textViewS) {
-
+    void zeroO() {
+        
         if (lenN == 0) {
 
             if (op != 4) {
-                number(btnZero, textView, textViewS);
+                number(mainActivity.btnZero);
                 lastZero = true;
             }
 
@@ -31,19 +32,19 @@ class Logic {
         else {
 
             if (lenN == 1) {
-                if (!lastZero) number(btnZero, textView, textViewS);
-                else if (lastDot) number(btnZero, textView, textViewS);
+                if (!lastZero) number(mainActivity.btnZero);
+                else if (lastDot) number(mainActivity.btnZero);
             }
-            else number(btnZero, textView, textViewS);
+            else number(mainActivity.btnZero);
 
         }
     }
 
 
-    void clear(TextView textView, TextView textViewS) {
+    void clear() {
 
-        textView.setText("");
-        textViewS.setText("");
+        mainActivity.textView.setText("");
+        mainActivity.textViewS.setText("");
         targetZero();
         firstAction = false;
         lastEq = false;
@@ -56,22 +57,22 @@ class Logic {
     }
 
 
-     void equalL(TextView textView, TextView textViewS) {
+    void equalL() {
 
         if (firstAction) {
-            if (lastNumeric) eqAct(textView, textViewS);
-            else if (op != 0 && !lastDot) eqAct(textView, textViewS);
+            if (lastNumeric) eqAct();
+            else if (op != 0 && !lastDot) eqAct();
         }
     }
 
 
-    void btnDotT(TextView textView, TextView textViewS) {
+    void btnDotT() {
 
         if (!lastDot && !lastEq) {
 
             if (lastNumeric) {
-                textView.append(".");
-                textViewS.append(".");
+                mainActivity.textView.append(".");
+                mainActivity.textViewS.append(".");
                 lastNumeric = false;
                 lastDot = true;
                 lastZero = false;
@@ -80,7 +81,7 @@ class Logic {
     }
 
 
-     void number(Button c, TextView textView, TextView textViewS) {
+    void number(Button c) {
 
         if (!lastEq) {
 
@@ -90,13 +91,13 @@ class Logic {
 
                     if (lastZero) {
 
-                        textView.setText("");
-                        textViewS.setText("");
-                        numAction(c, textView, textViewS);
+                        mainActivity.textView.setText("");
+                        mainActivity.textViewS.setText("");
+                        numAction(c);
                     }
-                    else numAction(c, textView, textViewS);
+                    else numAction(c);
                 }
-                else numAction(c, textView, textViewS);
+                else numAction(c);
             }
 
         }
@@ -104,7 +105,7 @@ class Logic {
     }
 
 
-    void body(Button a, int b, TextView textView, TextView textViewS, Button btnMinus) {
+    void body(Button a, int b) {
 
 
         if (lastNumeric) {
@@ -115,18 +116,18 @@ class Logic {
                     lastEq = false;
                 }
                 else {
-                    action(textView, textViewS);
+                    action();
                     lastEq = false;
                 }
             }
             else {
-                last = Double.parseDouble(textView.getText().toString());
+                last = Double.parseDouble(mainActivity.textView.getText().toString());
                 lastNumeric = false;
             }
 
 
-            textViewS.setText("");
-            textView.append(a.getText());
+            mainActivity.textViewS.setText("");
+            mainActivity.textView.append(a.getText());
             op = b;
             lastBtn = b;
             targetZero();
@@ -137,14 +138,14 @@ class Logic {
 
             if (firstAction) {
                 if (b != lastBtn) {
-                    String tV = textView.getText().toString();
-                    textView.setText(tV.substring(0, tV.length() - 1));
-                    textView.append(a.getText());
+                    String tV = mainActivity.textView.getText().toString();
+                    mainActivity.textView.setText(tV.substring(0, tV.length() - 1));
+                    mainActivity.textView.append(a.getText());
                     lastBtn = b;
                 }
             }
             else if (b == 2 && !isMinus) {
-                textView.append(btnMinus.getText());
+                mainActivity.textView.append(mainActivity.btnMinus.getText());
                 isMinus = true;
             }
 
@@ -153,9 +154,9 @@ class Logic {
 
 
 
-    private void eqAct(TextView textView, TextView textViewS) {
+    private void eqAct() {
 
-        action(textView, textViewS);
+        action();
         lastEq = true;
     }
 
@@ -169,10 +170,10 @@ class Logic {
     }
 
 
-    private void numAction(Button f, TextView textView, TextView textViewS) {
+    private void numAction(Button f) {
 
-        textView.append(f.getText());
-        textViewS.append(f.getText());
+        mainActivity.textView.append(f.getText());
+        mainActivity.textViewS.append(f.getText());
         lastNumeric = true;
         lenN++;
         lastZero = false;
@@ -206,12 +207,12 @@ class Logic {
     }
 
 
-    private void action(TextView textView, TextView textViewS) {
+    private void action() {
 
-        present = Double.parseDouble(textViewS.getText().toString());
+        present = Double.parseDouble(mainActivity.textViewS.getText().toString());
         calculator();
 
-        if (result == 0) textView.setText("0");
+        if (result == 0) mainActivity.textView.setText("0");
 
         else {
 
@@ -227,8 +228,8 @@ class Logic {
 
             if (bigStr.endsWith(".0")) bigStr = bigDec.setScale(ini, BigDecimal.ROUND_DOWN).toString();
 
-            if (bigStr.length() > 15) { textView.setText(String.valueOf(result)); }
-            else textView.setText(bigStr);
+            if (bigStr.length() > 15) { mainActivity.textView.setText(String.valueOf(result)); }
+            else mainActivity.textView.setText(bigStr);
         }
 
         targetZero();
