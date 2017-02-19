@@ -12,7 +12,6 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    public Logic logic = new Logic();
 
     @BindView(R.id.textView) TextView textView;
     @BindView(R.id.textViewS) TextView textViewS;
@@ -34,25 +33,25 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.btnClear) Button btnClear;
     @BindView(R.id.btnEqual) Button btnEqual;
 
-    @OnClick(R.id.btnOne) public void btnOne() { logic.number(btnOne); }
-    @OnClick(R.id.btnTwo) public void btnTwo() { logic.number(btnTwo); }
-    @OnClick(R.id.btnThree) public void btnThree() { logic.number(btnThree); }
-    @OnClick(R.id.btnFour) public void btnFour() { logic.number(btnFour); }
-    @OnClick(R.id.btnFive) public void btnFive() { logic.number(btnFive); }
-    @OnClick(R.id.btnSix) public void btnSix() { logic.number(btnSix); }
-    @OnClick(R.id.btnSeven) public void btnSeven() { logic.number(btnSeven); }
-    @OnClick(R.id.btnEight) public void btnEight() { logic.number(btnEight); }
-    @OnClick(R.id.btnNine) public void btnNine() { logic.number(btnNine); }
+    @OnClick(R.id.btnOne) public void btnOne() { Logic.number(btnOne, textView, textViewS); }
+    @OnClick(R.id.btnTwo) public void btnTwo() { Logic.number(btnTwo, textView, textViewS); }
+    @OnClick(R.id.btnThree) public void btnThree() { Logic.number(btnThree, textView, textViewS); }
+    @OnClick(R.id.btnFour) public void btnFour() { Logic.number(btnFour, textView, textViewS); }
+    @OnClick(R.id.btnFive) public void btnFive() { Logic.number(btnFive, textView, textViewS); }
+    @OnClick(R.id.btnSix) public void btnSix() { Logic.number(btnSix, textView, textViewS); }
+    @OnClick(R.id.btnSeven) public void btnSeven() { Logic.number(btnSeven, textView, textViewS); }
+    @OnClick(R.id.btnEight) public void btnEight() { Logic.number(btnEight, textView, textViewS); }
+    @OnClick(R.id.btnNine) public void btnNine() { Logic.number(btnNine, textView, textViewS); }
 
-    @OnClick(R.id.btnPlus) public void btnPlus() { logic.body (btnPlus, 1); }
-    @OnClick(R.id.btnMinus) public void btnMinus() { logic.body (btnMinus, 2); }
-    @OnClick(R.id.btnMulti) public void btnMulti() { logic.body (btnMulti, 3); }
-    @OnClick(R.id.btnDivide) public void btnDivide() { logic.body (btnDivide, 4); }
+    @OnClick(R.id.btnPlus) public void btnPlus() { Logic.body (btnPlus, 1, textView, textViewS, btnMinus); }
+    @OnClick(R.id.btnMinus) public void btnMinus() { Logic.body (btnMinus, 2, textView, textViewS, btnMinus); }
+    @OnClick(R.id.btnMulti) public void btnMulti() { Logic.body (btnMulti, 3, textView, textViewS, btnMinus); }
+    @OnClick(R.id.btnDivide) public void btnDivide() { Logic.body (btnDivide, 4, textView, textViewS, btnMinus); }
 
-    @OnClick(R.id.btnZero) public void btnZero() { logic.zeroO(); }
-    @OnClick(R.id.btnClear) public void btnClear() { logic.clear(); }
-    @OnClick(R.id.btnEqual) public void btnEqual() { logic.equalL(); }
-    @OnClick(R.id.btnDot) public void btnDot() { logic.btnDotT(); }
+    @OnClick(R.id.btnZero) public void btnZero() { Logic.zeroO(btnZero, textView, textViewS); }
+    @OnClick(R.id.btnClear) public void btnClear() { Logic.clear(textView, textViewS); }
+    @OnClick(R.id.btnEqual) public void btnEqual() { Logic.equalL(textView, textViewS); }
+    @OnClick(R.id.btnDot) public void btnDot() { Logic.btnDotT(textView, textViewS); }
 
 
     @Override
