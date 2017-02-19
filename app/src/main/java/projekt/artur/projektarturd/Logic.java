@@ -234,9 +234,6 @@ class Logic {
 
         targetZero();
         lastNumeric = true;
-
     }
 
-
 }
-
