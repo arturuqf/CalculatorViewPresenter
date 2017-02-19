@@ -230,8 +230,7 @@
         <TextView
             android:id="@+id/textViewS"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:inputType="numberDecimal" />
+            android:layout_height="0dp"/>
     </LinearLayout>
 
 </RelativeLayout>
